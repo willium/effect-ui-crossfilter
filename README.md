@@ -5,6 +5,9 @@ A [Mosaic](https://idl.uw.edu/mosaic/)-style linked-views dashboard built with
 DuckDB-WASM. Drag across any histogram to filter the other two; every
 aggregate is a SQL query that DuckDB answers in the browser.
 
+**Live demo:** https://willium.github.io/effect-ui-crossfilter/ (it downloads
+DuckDB-WASM, about 8 MB compressed, before the charts appear).
+
 ```sh
 npm install
 npm run dev     # http://localhost:5173
