@@ -1,0 +1,26 @@
+{
+  "name": "effect-ui-crossfilter",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "check": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@duckdb/duckdb-wasm": "1.33.1-dev57.0",
+    "@effect/ui": "https://pkg.pr.new/Effect-TS/ui/@effect/ui@9465cfb",
+    "effect": "^4.1.6",
+    "vega": "^6.4.0",
+    "vega-lite": "^6.5.0"
+  },
+  "devDependencies": {
+    "@effect/vitest": "^4.1.6",
+    "happy-dom": "^21.0.4",
+    "typescript": "^7.0.2",
+    "vite": "^8.4.0",
+    "vitest": "^5.1.2"
+  }
+}
