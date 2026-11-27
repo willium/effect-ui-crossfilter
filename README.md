@@ -77,44 +77,66 @@ npm run check   # tsc
 
 ## Effect UI features used
 
-- **Components:** `Html.component(...).make({ init, update, view })`, with
-  Schema-typed `props`, `model`, `message` and `events`, and
-  `UiSchema.TaggedEnum` for messages and events (`Crossfilter`, `Histogram`).
-- **Children:** declared with `key`, `props` and `onEmit`. A chart's `Brushed`
-  event becomes the root's `BrushedHistogram` message, and re-keying the
-  charts resets their brushes.
-- **Queries:** `queries` entries backed by `Query.Service` (`BinCounts`,
-  `CountRows`, `CubeCounts`). Results are cached by args with
-  `staleTime: "Infinity"` and read as `AsyncResult`, including `waiting`. The
-  indexes set `dropPrevious: true`. One query's args read another's result:
-  `filtered` turns itself off once `index` has arrived, and args of
-  `undefined` disable a query. Superseded fetches are interrupted.
-- **Mounts:** `Mount.makeStream`, its `changes` stream, and `Mount.map`. Each
-  chart's Vega view is built once and updated in place (`DrawHistogram`).
-- **Updates:** `$.evolve` and `$.emit`.
-- **Host:** `BrowserHost.mount`, launched with `Layer.launch`.
-- **Tests:** `Story` from `@effect/ui/testing`, with `given`, `send`,
-  `loaded`, `keepPending` and `emitted`.
+Effect UI documents itself in [`LLMS.md`](https://github.com/Effect-TS/ui/blob/main/LLMS.md) and in the doc comments of
+its source, so the links point there.
+
+- **Components** ([docs](https://github.com/Effect-TS/ui/blob/main/LLMS.md#building-user-interfaces-with-effectui),
+  [`Html`](https://github.com/Effect-TS/ui/blob/main/packages/ui/src/html/Html.ts), [`UiSchema`](https://github.com/Effect-TS/ui/blob/main/packages/ui/src/UiSchema.ts)):
+  `Html.component(...).make({ init, update, view })`, with Schema-typed
+  `props`, `model`, `message` and `events`, and `UiSchema.TaggedEnum` for
+  messages and events (`Crossfilter`, `Histogram`).
+- **Children** ([docs](https://github.com/Effect-TS/ui/blob/main/LLMS.md#who-owns-the-state)): declared with `key`,
+  `props` and `onEmit`. A chart's `Brushed` event becomes the root's
+  `BrushedHistogram` message, and re-keying the charts resets their brushes.
+- **Queries** ([docs](https://github.com/Effect-TS/ui/blob/main/LLMS.md#loading-data), [`Query`](https://github.com/Effect-TS/ui/blob/main/packages/ui/src/Query.ts)):
+  `queries` entries backed by `Query.Service` (`BinCounts`, `CountRows`,
+  `CubeCounts`). Results are cached by args with `staleTime: "Infinity"` and
+  read as `AsyncResult`, including `waiting`. The indexes set
+  `dropPrevious: true`. One query's args read another's result: `filtered`
+  turns itself off once `index` has arrived, and args of `undefined` disable
+  a query. Superseded fetches are interrupted.
+- **Mounts** ([docs](https://github.com/Effect-TS/ui/blob/main/LLMS.md#mounts), [`Mount`](https://github.com/Effect-TS/ui/blob/main/packages/ui/src/Mount.ts)):
+  `Mount.makeStream`, its `changes` stream, and `Mount.map`. Each chart's Vega
+  view is built once and updated in place (`DrawHistogram`).
+- **Updates** ([docs](https://github.com/Effect-TS/ui/blob/main/LLMS.md#changing-the-model)): `$.evolve` and `$.emit`.
+- **Host** ([`BrowserHost`](https://github.com/Effect-TS/ui/blob/main/packages/ui/src/html/BrowserHost.ts)): `BrowserHost.mount`,
+  launched with `Layer.launch`.
+- **Tests** ([`Story`](https://github.com/Effect-TS/ui/blob/main/packages/ui/src/testing/Story.ts)): `Story` from
+  `@effect/ui/testing`, with `given`, `send`, `loaded`, `keepPending` and
+  `emitted`.
 
 ## Effect features used
 
-- **Services and layers:** `Context.Service` and `Layer.effect` for the
-  `DuckDB` service, and `Layer.mergeAll` and `Layer.provide` to give the
-  queries their database.
-- **Resources:** `Effect.acquireRelease` for the DuckDB worker and
-  connection, each Vega view, and its signal listener. Each is released when
-  its scope closes.
-- **Interruption:** `Effect.tryPromise` with its `AbortSignal`, and
-  `Effect.onInterrupt`. An interrupted fetch reaches DuckDB as `cancelSent`.
-- **Concurrency:** `Semaphore.withPermit` runs one query at a time, so a
-  query interrupted while it waits never runs.
-- **Streams:** `Stream.callback` with `Queue.offerUnsafe` turns a Vega signal
-  listener into a Stream. `Stream.runForEach` and `Effect.forkScoped` apply
-  new args to a running view.
-- **Schema:** `Struct`, `Literals`, `Tuple`, `NullOr`, `Array` and
-  `TaggedError`, for the domain, props, Models, and query args and results.
-- **Also:** `Effect.timed` and `Duration` for the per-chart timings,
-  `AsyncResult` from `effect/reactivity`, and `@effect/vitest`.
+Links go to the [Effect v4 documentation](https://effect.website/docs/v4/getting-started) and its
+[API reference](https://effect.website/docs/v4/api/effect).
+
+- **Services and layers** ([services](https://effect.website/docs/v4/requirements-management/services),
+  [layers](https://effect.website/docs/v4/requirements-management/layers)): `Context.Service` and
+  `Layer.effect` for the `DuckDB` service, and `Layer.mergeAll` and
+  `Layer.provide` to give the queries their database.
+- **Resources** ([scope](https://effect.website/docs/v4/resource-management/scope)):
+  `Effect.acquireRelease` for the DuckDB worker and connection, each Vega
+  view, and its signal listener. Each is released when its scope closes.
+- **Interruption** ([creating effects](https://effect.website/docs/v4/getting-started/creating-effects),
+  [interruption](https://effect.website/docs/v4/concurrency/basic-concurrency)): `Effect.tryPromise`
+  with its `AbortSignal`, and `Effect.onInterrupt`. An interrupted fetch
+  reaches DuckDB as `cancelSent`.
+- **Concurrency** ([semaphore](https://effect.website/docs/v4/concurrency/semaphore)):
+  `Semaphore.withPermit` runs one query at a time, so a query interrupted
+  while it waits never runs.
+- **Streams** ([creating](https://effect.website/docs/v4/stream/creating),
+  [consuming](https://effect.website/docs/v4/stream/consuming-streams), [queue](https://effect.website/docs/v4/concurrency/queue)):
+  `Stream.callback` with `Queue.offerUnsafe` turns a Vega signal listener
+  into a Stream. `Stream.runForEach` and `Effect.forkScoped` apply new args to
+  a running view.
+- **Schema** ([basic usage](https://effect.website/docs/v4/schema/basic-usage),
+  [classes](https://effect.website/docs/v4/schema/classes)): `Struct`, `Literals`, `Tuple`, `NullOr`,
+  `Array` and `TaggedError`, for the domain, props, Models, and query args
+  and results.
+- **Also:** `Effect.timed` ([`Effect`](https://effect.website/docs/v4/api/effect/Effect)) and
+  [`Duration`](https://effect.website/docs/v4/data-types/duration) for the per-chart timings,
+  [`AsyncResult`](https://effect.website/docs/v4/api/effect/reactivity/AsyncResult) from
+  `effect/reactivity`, and [`@effect/vitest`](https://effect.website/docs/v4/api/vitest).
 
 ## Issues and pull requests
 
