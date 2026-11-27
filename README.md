@@ -1,12 +1,12 @@
 # Flights crossfilter: Effect UI + DuckDB-WASM + Vega-Lite
 
+**[Try the live demo](https://willium.github.io/effect-ui-crossfilter/)**. It
+downloads DuckDB-WASM, about 8 MB compressed, before the charts appear.
+
 A [Mosaic](https://idl.uw.edu/mosaic/)-style linked-views dashboard built with
 [Effect UI](https://ui.effect.website/). One million synthetic flights live in
 DuckDB-WASM. Drag across any histogram to filter the other two; every
 aggregate is a SQL query that DuckDB answers in the browser.
-
-**Live demo:** https://willium.github.io/effect-ui-crossfilter/ (it downloads
-DuckDB-WASM, about 8 MB compressed, before the charts appear).
 
 ```sh
 npm install
