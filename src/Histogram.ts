@@ -116,11 +116,10 @@ export const Histogram = Html.component({
           : { active: props.slice.active, target: props.dimension, where: props.slice.fixed }
     },
     // Until the index is in, and when no other chart is brushed, DuckDB
-    // filters directly. A zero debounce makes the latest brush win: when the
-    // filters change again, the fetch for the old ones is interrupted.
+    // filters directly. The latest brush wins: when the filters change again,
+    // Effect UI interrupts the fetch for the old ones.
     filtered: {
       query: BinCounts,
-      debounce: "0 millis",
       args: ({ props, queries }) =>
         props.slice !== null && AsyncResult.isSuccess(queries.index)
           ? undefined

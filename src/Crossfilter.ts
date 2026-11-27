@@ -60,7 +60,6 @@ export const Crossfilter = Html.component({
     },
     selected: {
       query: CountRows,
-      debounce: "0 millis",
       args: ({ model, queries }) =>
         activeBrush(model) !== undefined && AsyncResult.isSuccess(queries.index)
           ? undefined

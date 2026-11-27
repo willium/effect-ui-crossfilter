@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@duckdb/duckdb-wasm": "1.33.1-dev57.0",
-    "@effect/ui": "https://pkg.pr.new/Effect-TS/ui/@effect/ui@9465cfb",
+    "@effect/ui": "https://pkg.pr.new/Effect-TS/ui/@effect/ui@22128c6",
     "effect": "^4.1.6",
     "vega": "^6.4.0",
     "vega-lite": "^6.5.0"
